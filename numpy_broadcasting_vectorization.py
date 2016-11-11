@@ -23,36 +23,65 @@ print(arr_2[idx])
 print(arr_1*arr_2[idx])
 
 print('start of more applicable example')
+print('start of more applicable example')
+print('start of more applicable example')
 ## more applicable to sliding window example below
 # given a 360x480 matrix (img) create a vector of sliding window slices that cover it
 
-img = np.random.randint(0,10,(360,420))
-win_slice = np.zeros((45,420))
-img = np.random.randint(0,10,(5,5))
-win_slice = np.zeros((2,2))
-window_step = 1
+img = np.random.randint(0,10,(5,5)) # the image to be sliced
+img_ht = img.shape[0]
+img_wd = img.shape[1]
 
-print('the below gives a slider of the full image width sliding in the vertical direction')
-idx = np.arange(0,img.shape[0]-win_slice.shape[0]+1,window_step)[:,None]+np.arange(win_slice.shape[0])
-print(idx)
-print('idx ',idx.shape)
-print('number of windows in the vertical slide: ',idx.shape[0],' height of window: ',idx.shape[1],' width: Full')
+win_ht = 2  # the first step is to slice the image into rows of this height
+win_stride = 1 # how much to step over on each window
 
-vect_o_windows = img[idx]
-print('vector of row windows shape: ',vect_o_windows.shape)
+idx = np.arange(0,img_ht-win_ht+1,win_stride)[:,None]+np.arange(win_ht)
+row_windows = img[idx]
+
+##print('shape: ',np.shape(np.arange(0,img.shape[0]-win_slice.shape[0]+1,window_step)[:,None]))
+##print('shape2: ',np.shape(np.arange(win_slice.shape[0])))
+##print(idxa)
+##print('idx ',idxa.shape)
+##print('number of windows in the vertical slide: ',idxa.shape[0],' height of window: ',idxa.shape[1],' width: Full')
+##print('vector of row windows shape: ',vect_o_windows.shape)
+
+small_img = np.transpose(row_windows[0,:,:])
+idx2_j = np.reshape(np.arange(0,4,1),(4,1,1))
+idx2_k = np.reshape(np.arange(win_ht),(win_ht,1))
+idx2 = idx2_j + idx2_k
+all_windows = small_img[idx2]
+
+print('img shape: ',img.shape)
+print('img: ',img)
+print('row_windows shape: ',row_windows.shape)
+print('row_windows: ',row_windows)
+print('small_img shape: ',small_img.shape)
+print('small_img: ',small_img)
+print('all windows shape: ',all_windows.shape)
+print('all_windows: ',all_windows)
+print('one random window:')
+print(all_windows[np.random.randint(0,all_windows.shape[0],(1,1))])
+
 
 # F it, instead of sliding horizontally going to transpose the windows previously created so can slide vertically again
 print('now we slide a window horizontally across the first of those full width windows')
-small_img = np.transpose(vect_o_windows)
-win_slice = np.zeros((30,45))
-win_slice = np.zeros((2,2))
-idx = np.arange(0,small_img.shape[0]-win_slice.shape[0]+1,window_step)[:,None]+np.arange(win_slice.shape[0])
-print('idx ',idx.shape)
-print(idx)
-##idx = np.transpose(idx)
-windows = small_img[idx]
-##vect_o_horz_windows[0:10,0,:]
-print('vector of horizontal windows shape: ',windows.shape)
+####small_img = np.transpose(vect_o_windows)
+##small_img = vect_o_windows[0,:,:]
+##print('small img: ',small_img)
+####win_slice = np.zeros((30,45))
+##win_slice = np.zeros((2,2))
+##idx = np.arange(0,small_img.shape[0]-win_slice.shape[0]+1,window_step)[:,None]+np.resize(np.arange(win_slice.shape[0]),(1,2))
+##print('shape: ',np.shape(np.arange(0,small_img.shape[0]-win_slice.shape[0]+1,window_step)[:,None]+np.resize(np.arange(win_slice.shape[0]),(1,2))))
+##print('idx ',idx.shape)
+##print(idx)
+####idx = np.transpose(idx)
+##print(np.transpose(idxa))
+##windows = small_img[idxa]
+####vect_o_horz_windows[0:10,0,:]
+##print('vector of horizontal windows shape: ',windows.shape)
+
+
+
 
 ## once confirmed correct
 # resize resize
