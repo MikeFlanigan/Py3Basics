@@ -1,5 +1,12 @@
 import numpy as np
 
+## ------------- functions ---------------
+def patchCleanNPredict(patch):
+    print('input shape:',patch.shape)
+    patch = np.resize(patch.flatten(),(1,np.shape(patch.flatten())[0]))
+    print('predicted ',patch.shape)
+## ---------------------------------------
+
 
 window = (30,46)
 strideY = 10
@@ -65,10 +72,14 @@ print(all_windows.shape)
 all_windows = np.transpose(all_windows,(1,0,3,2))
 print(all_windows.shape)
 
-rows = all_windows.shape[0]*all_windows.shape[1]
-cols = all_windows.shape[2]*all_windows.shape[3]
-all_windows = np.resize(all_windows,(rows,cols))
-print('all_windows is now a flattened matrix with rows falling in vertical sliding windows and then horizontal windows')
-print(all_windows.shape)
+##rows = all_windows.shape[0]*all_windows.shape[1]
+##cols = all_windows.shape[2]*all_windows.shape[3]
+##all_windows = np.resize(all_windows,(rows,cols))
+##print('all_windows is now a flattened matrix with rows falling in vertical sliding windows and then horizontal windows')
+##print(all_windows.shape)
+
+indx = np.arange(5)
+patchCleanNPredict(all_windows[indx,0,:,:])
+
 
 
