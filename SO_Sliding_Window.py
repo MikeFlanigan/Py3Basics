@@ -51,7 +51,7 @@ for i in range(all_windows.shape[2]): # display windows for visual confirmation
         cv2.imshow('image',all_windows[:,:,i,j])
         cv2.waitKey(100)
 
-all_windows = np.resize(all_windows,(200,137,total_windows))
+all_windows = np.resize(all_windows,(win_h,win_w,total_windows))
 print('all_windows shape after folding into 1d vector:', all_windows.shape)
 for i in range(all_windows.shape[2]): # display windows for visual confirmation
     cv2.imshow('image',all_windows[:,:,i])
