@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import sys
 
 
 def Predict(flattened_patches):
@@ -46,20 +47,23 @@ total_windows = num_vert_windows*num_horz_windows
 all_windows = np.transpose(all_windows,(3,2,1,0)) # rearrange for resizing and intuitive indexing
 
 print('all_windows shape as stored in 2d matrix:', all_windows.shape)
-for i in range(all_windows.shape[2]): # display windows for visual confirmation
-    for j in range(all_windows.shape[3]):
-        cv2.imshow('image',all_windows[:,:,i,j])
-        cv2.waitKey(100)
+##for i in range(all_windows.shape[2]): # display windows for visual confirmation
+##    for j in range(all_windows.shape[3]):
+##        cv2.imshow('image',all_windows[:,:,i,j])
+##        cv2.waitKey(100)
 
 all_windows = np.resize(all_windows,(win_h,win_w,total_windows))
 print('all_windows shape after folding into 1d vector:', all_windows.shape)
-for i in range(all_windows.shape[2]): # display windows for visual confirmation
-    cv2.imshow('image',all_windows[:,:,i])
-    cv2.waitKey(100)
+##for i in range(all_windows.shape[2]): # display windows for visual confirmation
+##    cv2.imshow('image',all_windows[:,:,i])
+##    cv2.waitKey(100)
 
 # shrinking all the windows down to the size needed for object detect predictions
+print('all_windows shape after shrinking to evaluation size:',all_windows.shape)
+print('data p:',data_patch_size)
 small_windows = cv2.resize(all_windows[:,:,0:all_windows.shape[2]],data_patch_size,0,0,cv2.INTER_AREA)
 print('all_windows shape after shrinking to evaluation size:',small_windows.shape)
+sys.exit()
 for i in range(small_windows.shape[2]): # display windows for vis. conf.
     cv2.imshow('image',small_windows[:,:,i])
     cv2.waitKey(100)
